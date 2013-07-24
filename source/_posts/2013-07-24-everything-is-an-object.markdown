@@ -25,7 +25,7 @@ class MyFirstClass
 end
 ```
 
-The first line defines the class name ('MyFirstClass' in this example). Everything between this and `end` is the class definition. The definition in my example has an `hello` method indicated by the `def` (I believe it stands for define). Everything between the define and the next `end` is contained in the `initialize` method.
+The first line defines the class name ('MyFirstClass' in this example). Everything between this and `end` is the class definition. The definition in my example has a `hello` method indicated by the `def` (I believe it stands for define). Everything between the define and the next `end` is contained in the `hello` method.
 
 On line 3 we call a method called `puts` with the text "Hello, World!". This line will output the text to the terminal/console window.
 
