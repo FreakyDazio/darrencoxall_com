@@ -6,7 +6,7 @@ comments: true
 categories: golang
 ---
 
-I have found myself spending ever increasing amounts of time developing in Go (golang). Not because I need to but because it's a refreshing change from my usual. One thing I was interested in however was simply getting my code to work *almost* anywhere which is harder with Go seeing as it needs a platform to target.
+I have found myself spending ever increasing amounts of time developing in Go (golang). Not because I need to, but because it's a refreshing change from my usual. One thing I was interested in however was simply getting my code to work *almost* anywhere which is harder with Go seeing as it needs a platform to target.
 
 <!-- more -->
 
@@ -42,4 +42,6 @@ done
 
 Make the script executable and now you should have a very crude way of cross compiling your go projects.
 
-Remember this isn't meant to be a one size fits all. It got my up and running quickly. There is almost certainly going to be a more comprehensive way of doing this but I didn't need it. All I needed were these few lines of bash and GVM.
+Remember this isn't meant to be a one size fits all. It got me up and running quickly. There is almost certainly going to be a more comprehensive way of doing this but I didn't need it. All I needed were these few lines of bash and GVM.
+
+[gvm]: https://github.com/moovweb/gvm "Go Version Manager"
