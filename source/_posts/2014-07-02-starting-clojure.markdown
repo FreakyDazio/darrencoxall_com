@@ -14,6 +14,8 @@ I selected Clojure because I find it interesting. There is something about its s
 
 So first place was to the [homepage][clojure_home]. I checked out a few of the tutorials and resources and settled on [Clojure from the ground up][clojure_ground_up].
 
+<!-- more -->
+
 Following the instructions I installed [Leiningen][leiningen], which seems to be a `Bundle` like tool for the language which is a relief for me as it also handles the installation of Clojure itself as well.
 
 The inclusion of a REPL is a god-send to a developer like me learning as it means I can experiment quickly and learn the basics. I then also discovered [Light Table][lighttable] which includes a live REPL feature which is brilliant as it also allows you to indent the code making it much easier to read.
