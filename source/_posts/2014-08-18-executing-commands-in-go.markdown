@@ -16,9 +16,9 @@ I tend to feel that there are three different types of command execution within 
 - Exit codes. These perform some cleanup, setup or check and you want to discard any output but assert the exit code.
 - Long running processes. This case is rarer but there are times when I want to spawn sub-processes. Maybe even starting up another server to proxy to for instance.
 
-So how do I handle these is Go? The magic all comes from the wonderful [os/exec][1] which is part of the Go standard library. Using this library then commands become a first class citizen within your application.
+So how do I handle these in Go? The magic all comes from the wonderful [os/exec][1] which is part of the Go standard library. Using this library, commands become a first class citizen within your application.
 
-*For all examples I am only going to include the primary logic but I will keep a link to a full copy in the Go Playgroud. The copies won't execute within the Playground due to the restrictions Google have in place but they will run fun locally.*
+*For all examples I am only going to include the primary logic but I will keep a link to a full copy in the Go Playgroud. The copies won't execute within the Playground due to the restrictions Google have in place but they should run fine locally.*
 
 I have defined the following functions to keep the examples short:
 
@@ -166,6 +166,6 @@ Now that was a lot more work but it all makes good sense. I started a computatio
 
 This has been quite a technical post but we have covered lots of ground with the flexibility of `os/exec`. I have tested all the examples on my Mac using go1.3. Any suggestions/improvements are welcomed.
 
-I hope I've been able to get across why I'm beginning to really enjoy workin with Go.
+I hope I've been able to get across why I'm beginning to really enjoy working with Go.
 
 [1]: http://godoc.org/os/exec "GoDoc: os/exec"
