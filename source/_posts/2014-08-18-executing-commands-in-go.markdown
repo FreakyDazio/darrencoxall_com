@@ -46,7 +46,7 @@ The first and most obvious use is to collect output from an external command. An
 
 ```go combined_output.go
 // Create an *exec.Cmd
-cmd := exec.Command("echo", "$PATH")
+cmd := exec.Command("echo", "Called from Go!")
 
 // Combine stdout and stderr
 printCommand(cmd)
@@ -54,7 +54,7 @@ output, err := cmd.CombinedOutput()
 printError(err)
 printOutput(output) // => go version go1.3 darwin/amd64
 
-// http://play.golang.org/p/qcDaHtfKv-
+// http://play.golang.org/p/-7PWDpt6zS
 ```
 
 This works well if you also want to check for any error messages output but if you want finer control over the output of a command then we can route it into different buffers giving us control over both standard output and standard error.
