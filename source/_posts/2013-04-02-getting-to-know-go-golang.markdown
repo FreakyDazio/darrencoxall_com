@@ -52,4 +52,4 @@ Oh… And Go is super cool and quick. Remember that it is a language and isn't d
 [golang]: http://golang.org/ "Golang"
 [benchmark]: http://www.techempower.com/blog/2013/03/28/framework-benchmarks/ "Framework Benchmarks"
 [performance]: http://blog.iron.io/2013/03/how-we-went-from-30-servers-to-2-go.html "Performance Improvements using Go"
-[vagrant_golang]: https://github.com/FreakyDazio/vagrant-golang "FreakyDazio/vagrant-golang"
+[vagrant_golang]: https://github.com/dcoxall/vagrant-golang "dcoxall/vagrant-golang"
