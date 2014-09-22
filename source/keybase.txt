@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/dcoxall
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.darrencoxall.com
+  * I am dcoxall (https://keybase.io/dcoxall) on keybase.
+  * I have a public key with fingerprint 3AF3 6BDE 5CE9 0541 5A31  237C 94CB 5532 5478 5774
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "3af36bde5ce905415a31237c94cb553254785774",
+            "host": "keybase.io",
+            "key_id": "94cb553254785774",
+            "uid": "e031eed4863597ff45a1afbf8787c000",
+            "username": "dcoxall"
+        },
+        "service": {
+            "hostname": "www.darrencoxall.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1411415686,
+    "expire_in": 157680000,
+    "prev": "76fb721009cb0b7bdb60b1b61645172a389261a1b1d0aaca3c384d5c50a62097",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMHtAnicbZFrSBRRFIBn1cp8gIJGmaBMKKHbMnfnvYGUSRKkPSj8I653Zu7o7K4z
+6+zsriYaRD6iSAgspYeC2gPUHkpCYJqJZEJCFBZZEBWVoT8syyykGbN/wYXLPfc7
+3zmHMxYficXYDrS0d6S9OR+yTY4sBbEj6XUNNbigSdW4qwb3otVLVtQypPt1RTVw
+F05CmWQECdEi4gmaAjQkgZNkRZ4SBZomnTTFcjTLUrgdL9cCVoapEWAAORTNjJkP
+tyKZ0f/wwdUPRJAAIYniGJLmWVmmaAigLMgcy7EiQRAWGEC6CiuQSUuiVgV9PrzW
+jpvBkCIiq2Wr8hoQDocdEtR1pP4lHaJWYSr8umZoouYziXLD8LssgVHtX81AgnvN
+5RYUVTLHNxNCSA8omoq7gEmKhmLJAQXMQzMcY8dRlV/RkVuxCJplOLNTwiqDQqaS
+ZWSBdQKC4EWBEFhBEhhCAAIDGIoGrBOSHO9kAAQCkAgIRUiKJEdJtEgTkHESPItb
+01WqGu4izTZhmakMKGUqNII6wmtHR4qjMFsMtn5dhLVALGZjwr+1vnJEY6PeaSJ0
+O3fvcHrh1qb8MX5XfWVez7eliZnPIzM360qX590vJmFia8HDC9NvM6NSPKfu9YHc
+sJ17Ri08Dvf+TMbywOU71zY9jW6e7+9s7drRrvV7pk+Pxza3/MZTXsYNv++Z2Bdx
+qagvYWV5rODix5xU+Xtj0cDxqJPSsVtz7khsdvhGYf2XkrY277yR/zo7UarzPT9k
+yzj7aRA49zfOerd9eFA65H3CN3muN0z++jGV+W580LUnq7vkSvzXMzuZOG53ctLB
+NPZuf+3h4g05KVezOseD2e4Ffij7XH1gjt7Md3s6FgsHuoruz27JmDwaq/ADJ3oT
+t0/lrqQ+6lxkk/4AcGsUaA==
+=Rj6s
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/dcoxall
+
+==================================================================
