@@ -1,1 +1,6 @@
 ---
+baseurl: "http://www.darrencoxall.com/"
+title: "Darren Coxall"
+metadataformat: yaml
+permalinks:
+  posts: /:section/:slug/
