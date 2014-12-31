@@ -15,14 +15,21 @@ li article {
 }
 
 ul.meta li {
+  font-size: 0.9em;
   display: inline-block;
   &:before {
     content: "\2022";
-    padding: 0 $padding-base-horizontal;
+    padding: 0 ($padding-base-horizontal / 4);
   }
   &:first-child:before {
     content: "";
     padding: 0;
+  }
+  @media(min-width: $screen-xs-min) {
+    font-size: 1em;
+    &:before {
+      padding: 0 $padding-base-horizontal;
+    }
   }
 }
 
