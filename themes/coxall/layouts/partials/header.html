@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
+    <base href="{{ .Site.BaseUrl }}">
+    <link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">
+    <link href="/css/coxall.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night-eighties.min.css">
+  </head>
+  <body lang="en">
+
+    {{ if ne .Url "/" }}
+    <header>
+      <a href="{{ .Site.BaseUrl }}">
+        Home
+      </a>
+    </header>
+    {{ end }}
