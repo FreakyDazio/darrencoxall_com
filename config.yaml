@@ -1,6 +1,7 @@
 ---
-baseurl: "http://www.darrencoxall.com/"
-title: "Darren Coxall"
+baseurl: http://www.darrencoxall.com/
+title: Darren Coxall
 metadataformat: yaml
+theme: coxall
 permalinks:
   posts: /:section/:slug/
