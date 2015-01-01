@@ -13,4 +13,4 @@ build: clean
 deploy:
 	rsync -vrc public/* ${DEPLOY_USER}@${DEPLOY_HOST}:darrencoxall_com/
 
-.PHONY: clean build
+.PHONY: clean build deploy
