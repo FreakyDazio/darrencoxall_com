@@ -1,6 +1,5 @@
 ---
-date: 2014-12-24T09:43:51Z
-draft: true
+date: 2015-01-01T10:00:00Z
 title: "Refactoring Walkthrough"
 type: post
 ---
