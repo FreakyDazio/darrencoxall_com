@@ -11,6 +11,6 @@ build: clean
 	hugo
 
 deploy:
-	rsync -vrc public/* ${DEPLOY_USER}@${DEPLOY_HOST}:darrencoxall_com/
+	rsync -vrc public/* ../darrencoxall_com/
 
 .PHONY: clean build deploy
