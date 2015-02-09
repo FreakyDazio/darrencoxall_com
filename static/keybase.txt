@@ -1,0 +1,73 @@
+==================================================================
+https://keybase.io/dcoxall
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.darrencoxall.com
+  * I am dcoxall (https://keybase.io/dcoxall) on keybase.
+  * I have a public key with fingerprint 3AF3 6BDE 5CE9 0541 5A31  237C 94CB 5532 5478 5774
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "3af36bde5ce905415a31237c94cb553254785774",
+            "host": "keybase.io",
+            "key_id": "94cb553254785774",
+            "kid": "01015b917e348f13e7418b9864cec76020398f2e535fd87e3d1cf732aa25441694ca0a",
+            "uid": "e031eed4863597ff45a1afbf8787c000",
+            "username": "dcoxall"
+        },
+        "revoke": {
+            "sig_ids": [
+                "e84a9d21d58c85bb993f67a6a5a21a54321252daae20bb5105844bda612924200f"
+            ]
+        },
+        "service": {
+            "hostname": "www.darrencoxall.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1423473657,
+    "expire_in": 157680000,
+    "prev": "8181afd62f0e0b568a7bb3358ee830e9e126189304a9cf4b921c15a927500adf",
+    "seqno": 6,
+    "tag": "signature"
+}
+
+which yields the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.1
+Comment: https://keybase.io/crypto
+
+yMJsAnicbZJvaJVVHMfv1d2py9KZjLKx4YGJ0ljn73POc00iUoKQFqUSlmznPM85
+16fdPc/1uXf3bi1Hmqhs6DsTerE1bIFgUxQkEsKJrdCZIiOnQcqIQLKCxGyE2Xlu
+9q5Xh3PO9/f5fc/3/M4/Pj9Vl24/NPJx8w8fltMXJ470pDbN9M/1AxX5fSDbD7p0
+dTFBmNNxIQ7CEsgCIg1xlK+Zp13IKGKSIEy451JPMUYwo1wwziloBdujYlJhMUoW
+dVsQ2TO76Qh8e/o/+q7qBUQQMeUirgkVBhHNKRLKFQ71tMcdiCFxhcGaEWZ8YVU+
+8gwnWErLosixYAmlxfVUcRoSpLVPhUOYy42hTCJplBFccA9CmAiLOg5lt7Zq34t6
+ZT4PdraCWJejLp0EUAxy1nMRZN8CWlDp+hj5THiCKeW6xDhcOpJJjCSjBCPMsC+l
+xlAphiATlCpfOgi7mGIIDdhm2bZhOfCq8CSkR80rlUqbL+NYh/+6aPOibmuvEEel
+yIvyVrG9VCpkE3OlvkK1QquOR6wOFYS+/SlbUNZxMYhCkEVW6ZWCBI4oJpQTh/FW
+oHsLQaw7gkTBuCNsCjBpo8sWKZCw+fgONlBDxRwhuVKEMKG1IFC7GmEHCZdAG4Rn
+qHIx8uwQuJgzCKVvQPK6HWEEso61KXMWafMLZakn1mDnubNv16TSdanazLxk1lJ1
+i5b+N4GXbyx4UH+7/q4aHv+COqmFX95f/XDBvPrOVc1y3/Wx1R98uwldyb17b8Xe
+w9sq5y+PLj+1arN778dnR9fd3t84cUzOzM3uPvzJEwN3/M8f9K3IDOYrN/Y0pJtf
+636950DLUw+fG1q80KxtXP/30K2/zmxevGv6+cHMiUVnBi5e++jrjZ9eO7avdHV8
+suWX8eF008GtQa3ZUJsZ+3k83/jCFdHw6zNvnLr7+6tNePCPmrMt7UP3f+pc13R8
+dMmLZOTk9Oj7b96cWPMKu/TO0YYnv3rsm6nfpsdWvvT08Pcmt+fI1f6RuetTrZPv
+be0Nd6xdOTXx58b8zLnJ/S/Pnp5p7xzZcOHg3tmjazID4ruapcvWf7blH802Q8o=
+=54xS
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/dcoxall
+
+==================================================================
