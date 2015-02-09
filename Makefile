@@ -11,6 +11,6 @@ build: clean
 	hugo
 
 deploy:
-	rsync -vrc public/* ../darrencoxall_com/
+	rsync -vrc public/* ../dcoxall.github.io/
 
 .PHONY: clean build deploy
