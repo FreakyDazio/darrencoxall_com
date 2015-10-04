@@ -22,8 +22,7 @@ ul.meta li {
     padding: 0 ($padding-base-horizontal / 4);
   }
   &:first-child:before {
-    content: "";
-    padding: 0;
+    display: none;
   }
   @media(min-width: $screen-xs-min) {
     font-size: 1em;
