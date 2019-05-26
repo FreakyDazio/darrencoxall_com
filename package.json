@@ -1,0 +1,24 @@
+{
+  "name": "darrencoxall_com",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "sass -I node_modules/bourbon/core -I node_modules/normalize.css -s compressed themes/coxall/src/sass:themes/coxall/static/css",
+    "watch": "sass -I node_modules/bourbon/core -I node_modules/normalize.css --watch themes/coxall/src/sass:themes/coxall/static/css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcoxall/darrencoxall_com.git"
+  },
+  "author": "Darren Coxall <darren@darrencoxall.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "bourbon": "^5.1.0",
+    "sass": "^1.19.0"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}

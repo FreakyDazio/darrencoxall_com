@@ -4,13 +4,7 @@ clean:
 	rm -rf public/*
 
 build: clean
-	sass -r bootstrap-sass \
-		--scss -C \
-		--update themes/coxall/src/sass:themes/coxall/static/css \
-		-t compressed
+	npm run build
 	hugo
 
-deploy:
-	rsync -vrc public/* ../dcoxall.github.io/
-
-.PHONY: clean build deploy
+.PHONY: clean build

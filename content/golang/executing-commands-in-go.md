@@ -18,55 +18,61 @@ So how do I handle these in Go? The magic all comes from the wonderful [os/exec]
 
 I have defined the following functions to keep the examples short:
 
-    func printCommand(cmd *exec.Cmd) {
-      fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
-    }
+```golang
+func printCommand(cmd *exec.Cmd) {
+  fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
+}
 
-    func printError(err error) {
-      if err != nil {
-        os.Stderr.WriteString(fmt.Sprintf("==> Error: %s\n", err.Error()))
-      }
-    }
+func printError(err error) {
+  if err != nil {
+    os.Stderr.WriteString(fmt.Sprintf("==> Error: %s\n", err.Error()))
+  }
+}
 
-    func printOutput(outs []byte) {
-      if len(outs) > 0 {
-        fmt.Printf("==> Output: %s\n", string(outs))
-      }
-    }
+func printOutput(outs []byte) {
+  if len(outs) > 0 {
+    fmt.Printf("==> Output: %s\n", string(outs))
+  }
+}
+```
 
 ## Collecting output
 
 The first and most obvious use is to collect output from an external command. An easy way to do that is to use the `CombinedOutput` function.
 
-    // Create an *exec.Cmd
-    cmd := exec.Command("echo", "Called from Go!")
+```golang
+// Create an *exec.Cmd
+cmd := exec.Command("echo", "Called from Go!")
 
-    // Combine stdout and stderr
-    printCommand(cmd)
-    output, err := cmd.CombinedOutput()
-    printError(err)
-    printOutput(output) // => go version go1.3 darwin/amd64
+// Combine stdout and stderr
+printCommand(cmd)
+output, err := cmd.CombinedOutput()
+printError(err)
+printOutput(output) // => go version go1.3 darwin/amd64
 
-    // http://play.golang.org/p/-7PWDpt6zS
+// http://play.golang.org/p/-7PWDpt6zS
+```
 
 This works well if you also want to check for any error messages output but if you want finer control over the output of a command then we can route it into different buffers giving us control over both standard output and standard error.
 
-    // Create an *exec.Cmd
-    cmd := exec.Command("go", "version")
+```golang
+// Create an *exec.Cmd
+cmd := exec.Command("go", "version")
 
-    // Stdout buffer
-    cmdOutput := &bytes.Buffer{}
-    // Attach buffer to command
-    cmd.Stdout = cmdOutput
+// Stdout buffer
+cmdOutput := &bytes.Buffer{}
+// Attach buffer to command
+cmd.Stdout = cmdOutput
 
-    // Execute command
-    printCommand(cmd)
-    err := cmd.Run() // will wait for command to return
-    printError(err)
-    // Only output the commands stdout
-    printOutput(cmdOutput.Bytes()) // => go version go1.3 darwin/amd64
+// Execute command
+printCommand(cmd)
+err := cmd.Run() // will wait for command to return
+printError(err)
+// Only output the commands stdout
+printOutput(cmdOutput.Bytes()) // => go version go1.3 darwin/amd64
 
-    // http://play.golang.org/p/_6xke11GMp
+// http://play.golang.org/p/_6xke11GMp
+```
 
 In the above example we manually connect our own buffer to capture the commands stdout stream. We can do the same for stderr and even stdin so long as it adheres to the `io.Reader` interface.
 
@@ -78,22 +84,24 @@ Retrieving the exit code of a command is easy with Go. You may have already noti
 
 The following code will output the exit code of a command.
 
-    cmd := exec.Command("ls", "/imaginary/directory")
-    var waitStatus syscall.WaitStatus
-    if err := cmd.Run(); err != nil {
-      printError(err)
-      // Did the command fail because of an unsuccessful exit code
-      if exitError, ok := err.(*exec.ExitError); ok {
-        waitStatus = exitError.Sys().(syscall.WaitStatus)
-        printOutput([]byte(fmt.Sprintf("%d", waitStatus.ExitStatus())))
-      }
-    } else {
-      // Command was successful
-      waitStatus = cmd.ProcessState.Sys().(syscall.WaitStatus)
-      printOutput([]byte(fmt.Sprintf("%d", waitStatus.ExitStatus())))
-    }
+```golang
+cmd := exec.Command("ls", "/imaginary/directory")
+var waitStatus syscall.WaitStatus
+if err := cmd.Run(); err != nil {
+  printError(err)
+  // Did the command fail because of an unsuccessful exit code
+  if exitError, ok := err.(*exec.ExitError); ok {
+    waitStatus = exitError.Sys().(syscall.WaitStatus)
+    printOutput([]byte(fmt.Sprintf("%d", waitStatus.ExitStatus())))
+  }
+} else {
+  // Command was successful
+  waitStatus = cmd.ProcessState.Sys().(syscall.WaitStatus)
+  printOutput([]byte(fmt.Sprintf("%d", waitStatus.ExitStatus())))
+}
 
-    // http://play.golang.org/p/m2A17UWSOL
+// http://play.golang.org/p/m2A17UWSOL
+```
 
 The above code looks more complicated but in traditional Go fashion it handles many situations.
 
@@ -108,42 +116,44 @@ A caveat to take note of is that if Go failed to locate the command in your `$PA
 
 All our above examples are synchronous. They wait for the command to complete before continuing the execution of our application. If we wanted to execute a long running task however it is likely that we want it to happen asynchronously. Once again this is trivially easy.
 
-    cmd := exec.Command("cat", "/dev/random")
-    randomBytes := &bytes.Buffer{}
-    cmd.Stdout = randomBytes
+```golang
+cmd := exec.Command("cat", "/dev/random")
+randomBytes := &bytes.Buffer{}
+cmd.Stdout = randomBytes
 
-    // Start command asynchronously
-    err := cmd.Start()
-    printError(err)
+// Start command asynchronously
+err := cmd.Start()
+printError(err)
 
-    // Create a ticker that outputs elapsed time
-    ticker := time.NewTicker(time.Second)
-    go func(ticker *time.Ticker) {
-      now := time.Now()
-      for _ = range ticker.C {
-        printOutput(
-          []byte(fmt.Sprintf("%s", time.Since(now))),
-        )
-      }
-    }(ticker)
-
-    // Create a timer that will kill the process
-    timer := time.NewTimer(time.Second * 4)
-    go func(timer *time.Timer, ticker *time.Ticker, cmd *exec.Cmd) {
-      for _ = range timer.C {
-        err := cmd.Process.Signal(os.Kill)
-        printError(err)
-        ticker.Stop()
-      }
-    }(timer, ticker, cmd)
-
-    // Only proceed once the process has finished
-    cmd.Wait()
+// Create a ticker that outputs elapsed time
+ticker := time.NewTicker(time.Second)
+go func(ticker *time.Ticker) {
+  now := time.Now()
+  for _ = range ticker.C {
     printOutput(
-      []byte(fmt.Sprintf("%d bytes generated!", len(randomBytes.Bytes()))),
+      []byte(fmt.Sprintf("%s", time.Since(now))),
     )
+  }
+}(ticker)
 
-    // http://play.golang.org/p/tQRk1xJOqW
+// Create a timer that will kill the process
+timer := time.NewTimer(time.Second * 4)
+go func(timer *time.Timer, ticker *time.Ticker, cmd *exec.Cmd) {
+  for _ = range timer.C {
+    err := cmd.Process.Signal(os.Kill)
+    printError(err)
+    ticker.Stop()
+  }
+}(timer, ticker, cmd)
+
+// Only proceed once the process has finished
+cmd.Wait()
+printOutput(
+  []byte(fmt.Sprintf("%d bytes generated!", len(randomBytes.Bytes()))),
+)
+
+// http://play.golang.org/p/tQRk1xJOqW
+```
 
 Now that was a lot more work but it all makes good sense. I started a computationaly difficult task of generating a collection of random bytes. Next I start that command asynchronously and then begin a ticker to show the elapsed time and a timer to kill the process after 4 seconds. Once the process has been killed then we output the total number of generated bytes.
 

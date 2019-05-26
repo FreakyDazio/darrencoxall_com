@@ -12,25 +12,29 @@ I won't put the installation instructions here. Don't be lazy just click through
 
 First off set-up GVM and then install a version of Go. Then we can install the software required to compile for the various platforms. To do this I wrote the following:
 
-    for GOOS in linux darwin windows
-    do
-      for GOARCH in amd64 386
-      do
-        gvm cross $GOOS $GOARCH
-      done
-    done
+```bash
+for GOOS in linux darwin windows
+do
+  for GOARCH in amd64 386
+  do
+    gvm cross $GOOS $GOARCH
+  done
+done
+```
 
 Once that is complete you should now be able to create a helper script to do the actual compilation. Feel free to customise to your needs.
 
-    #!/bin/bash
-    APPNAME=example
-    for GOOS in linux darwin windows
-    do
-      for GOARCH in amd64 386
-      do
-        GO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o "bin/$APPNAME$GOOS-$GOARCH" "$APPNAME.go"
-      done
-    done
+```bash
+#!/bin/bash
+APPNAME=example
+for GOOS in linux darwin windows
+do
+  for GOARCH in amd64 386
+  do
+    GO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o "bin/$APPNAME$GOOS-$GOARCH" "$APPNAME.go"
+  done
+done
+```
 
 Make the script executable and now you should have a very crude way of cross compiling your go projects.
 

@@ -20,59 +20,69 @@ Slowly I can see the patterns in the language such as `conj` for inserting addit
 
 The first part that gets interesting (IMO) is the introduction of `lets` as this is where code re-use comes into play. Unfortunately the examples are lost on me a bit. My first question was how does let differ from just executing the code?
 
-    (let [hello ""] (str "Hello, " hello "!"))
-    (hello "Darren")
-    ; CompilerException java.lang.RuntimeException: Unable to resolve symbol: hello in this context, compiling:(NO_SOURCE_PATH:0:0)
+```clojure
+(let [hello ""] (str "Hello, " hello "!"))
+(hello "Darren")
+; CompilerException java.lang.RuntimeException: Unable to resolve symbol: hello in this context, compiling:(NO_SOURCE_PATH:0:0)
+```
 
 So how is the above useful? Well let looks as though it provides a context (I could be wrong, if so please correct me). The guide introduces `fn` so adapting my previous test:
 
-    (let [hello (fn [name] (str "Hello, " name "!"))]
-      (hello "Darren")) ; => "Hello, Darren!"
+```clojure
+(let [hello (fn [name] (str "Hello, " name "!"))]
+  (hello "Darren")) ; => "Hello, Darren!"
+```
 
 So that worked. After declaring a function I could re-use it within that particular expression. Moving on we are introduced to `def`.
 
-    (def hello (fn [name] (str "Hello, " name "!")))
-    (hello "Darren") ; => "Hello, Darren!"
+```clojure
+(def hello (fn [name] (str "Hello, " name "!")))
+(hello "Darren") ; => "Hello, Darren!"
+```
 
 Now this feels closer to what I know (which can be further abbreviated using `defn`). I can now build re-usable components although this is the first introduction to something mutable within Clojure.
 
 So continuing on I learn about supporting different arities and an introduction to some of the recursion functions. Now these are only starts but with them I could adjust my method to support multiple names.
 
-    (defn hello
-         ([name] (if (coll? name)
-                   (str "Hello, " (apply str (interpose ", " name)) "!")
-                   (str "Hey " name "!"))))
+```clojure
+(defn hello
+     ([name] (if (coll? name)
+               (str "Hello, " (apply str (interpose ", " name)) "!")
+               (str "Hey " name "!"))))
 
 
-    (hello '("Darren" "Danika"))
+(hello '("Darren" "Danika"))
+```
 
 Or I could go a little step further...
 
-    (defn human-list
-      ([names]
-       (cond
-        (= (count names) 0) ""
-        (= (count names) 1) (peek names)
-        (> (count names) 1) (str
-                             (apply str
-                                    (interpose ", " (reverse (rest (reverse names)))))
-                                    " and " (peek (reverse names))))))
+```clojure
+(defn human-list
+  ([names]
+   (cond
+    (= (count names) 0) ""
+    (= (count names) 1) (peek names)
+    (> (count names) 1) (str
+                         (apply str
+                                (interpose ", " (reverse (rest (reverse names)))))
+                                " and " (peek (reverse names))))))
 
-    (human-list (list)) ; => ""
-    (human-list '("A")) ; => "A"
-    (human-list '("A" "B")) ; => "A and B"
-    (human-list '("A" "B" "C")) ; => "A, B and C"
+(human-list (list)) ; => ""
+(human-list '("A")) ; => "A"
+(human-list '("A" "B")) ; => "A and B"
+(human-list '("A" "B" "C")) ; => "A, B and C"
 
-    (defn hello
-         ([name] (if (coll? name)
-                   (str "Hello " (human-list name) "!")
-                   (str "Hey " name "!"))))
+(defn hello
+     ([name] (if (coll? name)
+               (str "Hello " (human-list name) "!")
+               (str "Hey " name "!"))))
 
 
-    (hello "Darren") ; => "Hey Darren!"
-    (hello '("Darren")) ; => "Hello Darren!"
-    (hello '("Darren" "Danika")) ; => "Hello Darren and Danika!"
-    (hello '("Darren" "Danika" "George")) ; => "Hello Darren, Danika and George!"
+(hello "Darren") ; => "Hey Darren!"
+(hello '("Darren")) ; => "Hello Darren!"
+(hello '("Darren" "Danika")) ; => "Hello Darren and Danika!"
+(hello '("Darren" "Danika" "George")) ; => "Hello Darren, Danika and George!"
+```
 
 I'm enjoying the language although it is a stretch for me to do these things in a functional way and trying to avoid variables. Clojure does seem to encourage small abstractions as it can get difficult to read and follow when methods get large. That may well be because I'm new to the language and do things in strange ways but it's all part of the learning experience right?
 

@@ -15,11 +15,13 @@ Classes in Ruby are basically containers. They store methods that can be used an
 
 Classes can be defined like so:
 
-    class MyFirstClass
-      def hello
-        puts "Hello, World!"
-      end
-    end
+```ruby
+class MyFirstClass
+  def hello
+    puts "Hello, World!"
+  end
+end
+```
 
 The first line declares the class name ('MyFirstClass' in this example). Everything between this and `end` is the class definition. The definition in my example has a `hello` method indicated by the `def` (I believe it stands for define). Everything between the define and the next `end` is contained in the `hello` method.
 
@@ -30,15 +32,17 @@ Putting it all together we can see that we have a class called MyFirstClass whic
 ## What is an Object?
 Continuing from our previous example we now create an *object* of `MyFirstExample`. To do that add the following to the bottom of our example file.
 
-    class MyFirstClass
-      def hello
-        puts "Hello, World!"
-      end
-    end
+```ruby
+class MyFirstClass
+  def hello
+    puts "Hello, World!"
+  end
+end
 
-    # This is a comment. Below we create an object.
-    object = MyFirstObject.new
-    object.hello
+# This is a comment. Below we create an object.
+object = MyFirstObject.new
+object.hello
+```
 
 If you now run our file with `ruby /path/to/example.rb` you will see that it outputs "Hello, World!".
 
@@ -50,21 +54,23 @@ We've created our own class but Ruby provides many to begin with. In-fact we hav
 
 Ruby has a great many classes to help us start. Below is an example of a small number available to us:
 
-    # Numeric represents numbers
-    # It has many subclasses such as:
-    234.class # => Fixnum - integers
-    234.56.class # => Float - decimals
+```ruby
+# Numeric represents numbers
+# It has many subclasses such as:
+234.class # => Fixnum - integers
+234.56.class # => Float - decimals
 
-    # Array represents lists of objects
-    [1,2,3].class # => Array
-    ["sentence one", "sentence two"].class # => Array
+# Array represents lists of objects
+[1,2,3].class # => Array
+["sentence one", "sentence two"].class # => Array
 
-    # Hash represents a list of key value pairs
-    { :key_name => "key value" }.class # => Hash
-    { "text key" => 1234  }.class # => Hash
+# Hash represents a list of key value pairs
+{ :key_name => "key value" }.class # => Hash
+{ "text key" => 1234  }.class # => Hash
 
-    # Even the current script is a class
-    self.class # => Object
+# Even the current script is a class
+self.class # => Object
+```
 
 Next time we will look at ways we can add to classes both our own and the core classes. For now though let's recap. We have learnt that we can use classes to group and represent logic and code. We can create instances of classes - known as objects - which can call the defined methods. Finally we have also learnt that Ruby has many classes ready for us to use right away.
 

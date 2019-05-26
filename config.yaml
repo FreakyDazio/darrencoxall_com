@@ -1,6 +1,9 @@
 ---
 baseurl: http://www.darrencoxall.com/
 title: Darren Coxall
+enableEmoji: true
+pygmentsUseClasses: true
+pygmentsCodefences: true
 metadataformat: yaml
 theme: coxall
 permalinks:
