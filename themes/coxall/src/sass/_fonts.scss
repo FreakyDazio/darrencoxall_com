@@ -1,0 +1,61 @@
+$font-family-sans-serif: "Source Sans Pro", Helvetica, Arial, sans-serif;
+$font-family-serif: "Yrsa", Georgia, "Times New Roman", Times, serif;
+$font-family-base: $font-family-serif;
+
+$black-color: #435964;
+$secondary-color: #95A8A2;
+$accent-color: #EE7560;
+
+@include font-face("Source Sans Pro", "/fonts/Source_Sans_Pro/SourceSansPro-Regular", ("ttf")) {
+  font-style: normal;
+  font-weight: normal;
+}
+
+@include font-face("Source Sans Pro", "/fonts/Source_Sans_Pro/SourceSansPro-Italic", ("ttf")) {
+  font-style: italic;
+  font-weight: normal;
+}
+
+@include font-face("Source Sans Pro", "/fonts/Source_Sans_Pro/SourceSansPro-SemiBold", ("ttf")) {
+  font-style: normal;
+  font-weight: 600;
+}
+
+@include font-face("Yrsa", "/fonts/Yrsa/Yrsa-Regular", ("ttf")) {
+  font-style: normal;
+  font-weight: normal;
+}
+
+@include font-face("Yrsa", "/fonts/Yrsa/Yrsa-SemiBold", ("ttf")) {
+  font-style: normal;
+  font-weight: 600;
+}
+
+body {
+  font-family: $font-family-base;
+  line-height: modular-scale(2);
+  color: $black-color;
+}
+
+strong {
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: shade($black-color, 30%);
+}
+
+a {
+  text-decoration: none;
+  color: $accent-color;
+  transition: color 0.2s;
+
+  &:hover,
+  &:active {
+    color: darken($accent-color, 25%);
+    text-decoration: underline;
+  }
+}

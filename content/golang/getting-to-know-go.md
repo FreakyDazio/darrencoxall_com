@@ -12,12 +12,14 @@ Go *(or Golang as it is often referred to)* is a strong typed, compiled language
 
 There are numerous *hard-edge* decisions made with the language including the very C like object system and a unique function visibility system. Go is an object orientated language but the method/function definitions are much more explicit...
 
-    // DoSomething operates on an object of type MyObject
-    // and accepts a string parameter.
-    // The function will return a boolean.
-    func (obj MyObject) DoSomething(name string) (bool) {
-      // ...
-    }
+```golang
+// DoSomething operates on an object of type MyObject
+// and accepts a string parameter.
+// The function will return a boolean.
+func (obj MyObject) DoSomething(name string) (bool) {
+  // ...
+}
+```
 
 The system used to determine function visibility is also *different* to the tried and tested. Functions and variables that begin with a lowercase character are only accessible within their package whereas those beginning with an uppercase character are usable elsewhere.
 

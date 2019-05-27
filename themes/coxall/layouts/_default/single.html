@@ -1,11 +1,11 @@
 {{ partial "header.html" . }}
 
-    <main class="container">
+    <main>
 
-      <section class="row">
-        <article class="col-md-8 col-md-offset-2">
+      <section>
+        <article>
           <h1>{{ title .Title }}</h1>
-          <div class="meta text-muted">
+          <div class="meta">
             <p>
               <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
                 {{ .Date.Format "Mon, Jan 2, 2006" }}
@@ -16,18 +16,16 @@
         </article>
       </section>
 
-      <footer class="row h-card">
-        <div class="avatar col-md-2 col-md-offset-2 hidden-sm">
-          <img class="u-photo img-circle img-responsive" alt="Darren Coxall" src="/img/avatar.jpeg">
+      <footer class="h-card">
+        <div class="avatar">
+          <img class="u-photo" alt="Darren Coxall" src="/img/avatar.jpg">
         </div>
-        <aside class="col-md-6">
+        <aside>
           <h4>About The Author</h4>
           <p>
             My name is <span class="p-name">Darren Coxall</span>. I am a software
-            engineer in <span class="p-region">London</span> working for
-            <a class="p-org" href="https://www.marksandspencer.com">Marks &amp;
-            Spencer</a>. Currently my goto language is Ruby but I enjoy experimenting
-            with many languages.
+            engineer, father &amp; husband working in <span class="p-region">London</span> for
+            <a class="p-org" href="https://www.boardintelligence.com/">Board Intelligence</a>.
           </p>
         </aside>
       </footer>

@@ -1,33 +1,31 @@
 {{ partial "header.html" . }}
+{{ $currentPage := .Paginator.PageNumber }}
 
-{{ $latest := index .Data.Pages 0 }}
-
-    <main class="container">
-
+    <main>
       <ul class="list-unstyled">
-        <li class="row recent">
-          <article class="col-md-8 col-md-offset-2">
-            <h2>
-              <a rel="permalink" href="{{ $latest.Permalink }}">
-                {{ title $latest.Title }}
-              </a>
-            </h2>
-            <p>{{ $latest.Summary }}</p>
-            {{ partial "list_meta.html" $latest }}
-          </article>
-        </li>
-        {{ range .Data.Pages }}
-          {{ if ne . $latest }}
-            <li class="row archive">
-              <article class="col-md-8 col-md-offset-2">
-                <h3><a rel="permalink" href="{{ .Permalink }}">{{ title .Title }}</a></h3>
-                {{ partial "list_meta.html" . }}
-              </article>
-            </li>
-          {{ end }}
+        {{ range $index, $element := .Paginator.Pages }}
+          <li>
+            <article>
+              {{ if (and (eq $index 0) (eq $currentPage 1)) }}
+                <h2>
+                  <a rel="permalink" href="{{ $element.Permalink }}">
+                    {{ title $element.Title }}
+                  </a>
+                </h2>
+                <p>{{ $element.Summary }}</p>
+              {{ else }}
+                <h3>
+                  <a rel="permalink" href="{{ $element.Permalink }}">
+                    {{ title $element.Title }}
+                  </a>
+                </h3>
+              {{ end }}
+              {{ partial "list_meta.html" $element }}
+            </article>
+          </li>
         {{ end }}
       </ul>
-
+      {{ template "_internal/pagination.html" . }}
     </main>
 
 {{ partial "footer.html" . }}

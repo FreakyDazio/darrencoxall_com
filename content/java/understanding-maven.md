@@ -16,16 +16,18 @@ Installing maven is simple so I won't discuss that here, but you can find the of
 
 The key file is `pom.xml` (Project Object Model) which represents your project and dependencies in XML. Much like a `Gemfile` for Ruby or `package.json` for node. So looking at the [reference guide][pom] I'm going to create something very basic.
 
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-      <groupId>com.darrencoxall</groupId>
-      <artifactId>learning-maven</artifactId>
-      <version>1.0</version>
-    </project>
+  <groupId>com.darrencoxall</groupId>
+  <artifactId>learning-maven</artifactId>
+  <version>1.0</version>
+</project>
+```
 
 Here we need to ignore the `modelVersion` as 4 is the only acceptable version. The proceeding 3 attributes define the information about my own particular project.
 
@@ -45,14 +47,16 @@ We also have a new directory called "target". This is where our build artifacts 
 
 I'm now going to add a very simple application...
 
-    // src/main/java/Application.java
-    package learningmaven;
+```java
+// src/main/java/Application.java
+package learningmaven;
 
-    class Application {
-      public static void main(String[] arguments) {
-        System.out.println("Hello, World!");
-      }
-    }
+class Application {
+  public static void main(String[] arguments) {
+    System.out.println("Hello, World!");
+  }
+}
+```
 
 Again running `mvn clean install` results in a few more things in the target directory. I'm not particularly bothered by them though as I should now have a working JAR file right?
 
@@ -61,33 +65,35 @@ Again running `mvn clean install` results in a few more things in the target dir
 
 So no, how is main set then? Well a bit of searching and I discovered the maven-jar-plugin can be configured to generate the relevant meta files for the jar. So my `pom.xml` will now look like the following: _key points are the addClasspath and mainClass_
 
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-      <groupId>com.darrencoxall</groupId>
-      <artifactId>learning-maven</artifactId>
-      <version>1.0</version>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
-            <configuration>
-              <archive>
-                <manifest>
-                  <addClasspath>true</addClasspath>
-                  <mainClass>learningmaven.Application</mainClass>
-                </manifest>
-              </archive>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </project>
+  <groupId>com.darrencoxall</groupId>
+  <artifactId>learning-maven</artifactId>
+  <version>1.0</version>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>learningmaven.Application</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
 
 Now let's just try this again...
 
@@ -103,47 +109,53 @@ I'm going to add [Joda-Time][joda] to my project as it's a well respected time l
 
 To do this I need to add the following into my POM.
 
-    <dependencies>
-      <dependency>
-        <groupId>joda-time</groupId>
-        <artifactId>joda-time</artifactId>
-        <version>2.8.2</version>
-      </dependency>
-    </dependencies>
+```xml
+<dependencies>
+  <dependency>
+    <groupId>joda-time</groupId>
+    <artifactId>joda-time</artifactId>
+    <version>2.8.2</version>
+  </dependency>
+</dependencies>
+```
 
 Fast-forward a bit and I also discovered that maven won't automatically make dependencies available to the classpath and so we need to automate this with another plugin, maven-dependency-plugin.
 
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-dependency-plugin</artifactId>
-      <executions>
-        <execution>
-          <id>copy-dependencies</id>
-          <phase>package</phase>
-          <goals>
-            <goal>copy-dependencies</goal>
-          </goals>
-          <configuration>
-            <outputDirectory>${project.build.directory}</outputDirectory>
-            <overWriteReleases>false</overWriteReleases>
-            <overWriteSnapshots>true</overWriteSnapshots>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
+```xml
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>copy-dependencies</id>
+      <phase>package</phase>
+      <goals>
+        <goal>copy-dependencies</goal>
+      </goals>
+      <configuration>
+        <outputDirectory>${project.build.directory}</outputDirectory>
+        <overWriteReleases>false</overWriteReleases>
+        <overWriteSnapshots>true</overWriteSnapshots>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+```
 
 With this in place dependencies are then available to our code and packaged into our jar. So let's use joda-time in our code.
 
-    package learningmaven;
+```java
+package learningmaven;
 
-    import org.joda.time.Instant;
+import org.joda.time.Instant;
 
-    class Application {
-      public static void main(String[] arguments) {
-        Instant now = Instant.now();
-        System.out.println(now);
-      }
-    }
+class Application {
+  public static void main(String[] arguments) {
+    Instant now = Instant.now();
+    System.out.println(now);
+  }
+}
+```
 
 Finally we can compile and build the project and see if it works.
 

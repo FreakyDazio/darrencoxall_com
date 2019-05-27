@@ -1,4 +1,4 @@
-<ul class="meta small list-unstyled text-muted">
+<ul class="meta list-unstyled">
   <li class="category">
     <a href="/{{ .Section }}" title="Posts labeled as '{{ .Section }}'">
       {{ .Section }}
@@ -6,7 +6,7 @@
   </li>
   <li class="date">
     <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-      <span class="day hidden-xs">{{ .Date.Format "Mon" }},</span>
+      <span class="day">{{ .Date.Format "Mon" }},</span>
       {{ .Date.Format "Jan 2, 2006" }}
     </time>
   </li>

@@ -1,56 +1,299 @@
-$font-size-base: 18px;
-$line-height-base: 1.8;
-$font-family-sans-serif: "Source Sans Pro", Helvetica, Arial, sans-serif;
-$font-family-serif: "Droid Serif", Georgia, "Times New Roman", Times, serif;
-$font-family-base: $font-family-serif;
+@import "normalize";
+@import "bourbon";
+@import "_fonts";
+@import "_theme";
 
-@import "bootstrap";
-@import "typography";
+$max-body-width: 750px;
+$body-padding: modular-scale(2);
+$nav-item-vertical-padding: modular-scale(1) / 2;
+$nav-item-horizontal-padding: modular-scale(1);
+$large-screen-width: 1000px;
 
-li article {
-  padding-bottom: $padding-large-vertical * 2;
-  h3 {
-    margin-bottom: $padding-base-vertical;
+@mixin small-screen {
+  @media screen and (min-width: 500px) {
+    @content;
   }
 }
 
-ul.meta li {
-  font-size: 0.9em;
-  display: inline-block;
-  &:before {
-    content: "\2022";
-    padding: 0 ($padding-base-horizontal / 4);
+@mixin medium-screen {
+  @media screen and (min-width: $max-body-width) {
+    @content;
   }
-  &:first-child:before {
-    display: none;
+}
+
+@mixin large-screen {
+  @media screen and (min-width: $large-screen-width) {
+    @content;
   }
-  @media(min-width: $screen-xs-min) {
-    font-size: 1em;
-    &:before {
-      padding: 0 $padding-base-horizontal;
+}
+
+body {
+  @include padding($body-padding);
+
+  > header {
+    @include hide-visually;
+
+    @include medium-screen {
+      @include hide-visually("unhide");
+      @include position(absolute, modular-scale(2) null null modular-scale(2));
+    }
+
+    @include large-screen {
+      @include position(fixed, modular-scale(2) null null modular-scale(2));
+    }
+
+    a {
+      @include padding($nav-item-vertical-padding $nav-item-horizontal-padding);
+      display: inline-block;
+      border-radius: modular-scale(1) / 4;
+      font-weight: 600;
+      transition: background-color 0.2s, color 0.2s;
+      text-transform: uppercase;
+      font-family: $font-family-sans-serif;
+
+      &:hover, &:active {
+        color: #fff;
+        background-color: $accent-color;
+        text-decoration: none;
+      }
     }
   }
 }
 
-pre {
-  background-color: #2D2D2D;
-  border-width: 0;
+main {
+  max-width: $max-body-width;
+  margin: 0 auto;
+}
+
+.list-unstyled, .pagination {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.pagination {
+  font-size: 0;
+  font-family: $font-family-sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
+  li {
+    @include padding(modular-scale(5) #{modular-scale(1) / 4} null null);
+    font-size: 1rem;
+    line-height: 1rem;
+
+    @include small-screen {
+      @include padding(modular-scale(3) #{modular-scale(1) / 2} null null);
+    }
+
+    @include medium-screen {
+      display: inline-block;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+    }
+
+    &:last-child {
+      @include padding(null 0 null null);
+    }
+
+    &.active a, &.disabled a {
+      color: $secondary-color;
+
+      &:hover, &:active {
+        color: $secondary-color;
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+
+    a {
+      @include padding(modular-scale(1) / 4);
+      border-radius: 2px;
+      display: block;
+      transition: background-color 0.2s, color 0.2s;
+      font-weight: 600;
+
+      @include small-screen {
+        @include padding(modular-scale(1) / 2);
+        border-radius: modular-scale(1) / 4;
+      }
+
+      &:hover, &:active {
+        background-color: $accent-color;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+article {
+  .highlight {
+    pre {
+      border-radius: 3px;
+      @include padding(modular-scale(1) / 2);
+
+      @include large-screen {
+        @include padding(modular-scale(1));
+        border-radius: modular-scale(1) / 4;
+      }
+    }
+  }
+
+  pre {
+    font-size: 0.8rem;
+    line-height: modular-scale(2);
+    overflow-x: scroll;
+
+    @include medium-screen {
+      font-size: 1rem;
+      line-height: modular-scale(2);
+    }
+  }
+
+  blockquote {
+    @include margin(null null null 0);
+    @include padding(null null null modular-scale(1));
+    border-left: 5px solid $secondary-color;
+  }
+
+  @include medium-screen {
+    font-size: 1.2rem;
+    line-height: modular-scale(3);
+  }
+
+  h1 {
+    @include margin(0);
+    text-align: center;
+    line-height: modular-scale(1);
+
+    @include medium-screen {
+      @include padding(null modular-scale(4));
+    }
+  }
+
+  h2 { margin-top: 0; }
+  p { text-align: justify; }
+
+  ul.meta {
+    font-size: 0;
+    display: flex;
+    flex-flow: reverse nowrap;
+    justify-content: space-between;
+    color: $secondary-color;
+
+    @include small-screen {
+      justify-content: flex-start;
+    }
+
+
+    .day {
+      @include hide-visually;
+
+      @media (min-width: 500px) {
+        @include hide-visually("unhide");
+      }
+    }
+
+    li {
+      font-size: 0.8rem;
+      display: inline-block;
+
+      @include small-screen {
+        font-size: 1rem;
+        @include padding(null null null modular-scale(1));
+
+        &:first-child {
+          @include padding(null null null 0);
+        }
+      }
+    }
+  }
+
+  .meta p {
+    color: $secondary-color;
+    text-align: center;
+  }
+}
+
+.archive h3 {
+  @include margin(null null 0 null);
+
+  @include small-screen {
+    @include margin(null null #{modular-scale(1) / 2} null);
+  }
+
+  @include medium-screen {
+    @include margin(null null 0 null);
+  }
 }
 
 footer {
-  margin: ($padding-large-vertical * 5) 0 ($padding-large-vertical * 2);
-}
+  display: flex;
+  flex-flow: reverse nowrap;
+  justify-content: space-between;
+  max-width: 550px;
+  margin: 0 auto;
+  align-items: center;
 
-header {
-  display: none;
-  font-family: $font-family-sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  @include small-screen {
+    @include padding(modular-scale(3) null null null);
+  }
 
-  @media(min-width: $screen-md-min) {
-    display: block;
+  @include medium-screen {
+    max-width: 750px;
+  }
+
+  .avatar {
+    flex: 1 2 33%;
+    padding-right: modular-scale(1);
+    max-width: 150px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 100%;
+    }
+  }
+
+  aside {
+    flex: 2 1 66%;
+
+    h4 {
+      @include hide-visually;
+
+      @include small-screen {
+        @include hide-visually("unhide");
+        margin: 0;
+      }
+
+      @include medium-screen {
+        font-size: 1.5rem;
+        line-height: modular-scale(3);
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: $secondary-color;
+
+      @include small-screen {
+        @include margin(modular-scale(1) null null);
+        font-size: 1rem;
+      }
+
+      @include medium-screen {
+        @include margin(0 null null);
+        font-size: 1.2rem;
+        line-height: modular-scale(2);
+      }
+    }
   }
 }

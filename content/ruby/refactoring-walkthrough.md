@@ -82,56 +82,60 @@ doing. I find it much easier to re-structure the code once I understand what
 functions it is serving. It is then a case of moving pieces to their own
 methods.
 
-    def jsonp(*args)
-      # requires 1 or more arguments
-      if args.size > 0
-        # The first argument is the object to serialize
-        data = MultiJson.dump(
-          args[0],
-          :pretty => settings.respond_to?(:json_pretty) && settings.json_pretty
-        )
-        # If we have another argument it is the callback function name
-        if args.size > 1
-          callback = args[1].to_s
-        else
-          # If not then determine the callback based on the following parameters
-          ['callback','jscallback','jsonp','jsoncallback'].each do |x|
-            callback = params.delete(x) unless callback
-          end
-        end
-        # If we have a callback perform some basic sanitization and set the
-        # response content type and the eventual response body
-        if callback
-          callback.tr!('^a-zA-Z0-9_$\.', '')
-          content_type :js
-          response = "#{callback}(#{data})"
-        else
-          # If no callback then set the response content type to json and return
-          # the serialized data
-          content_type :json
-          response = data
-        end
-        response
+```ruby
+def jsonp(*args)
+  # requires 1 or more arguments
+  if args.size > 0
+    # The first argument is the object to serialize
+    data = MultiJson.dump(
+      args[0],
+      :pretty => settings.respond_to?(:json_pretty) && settings.json_pretty
+    )
+    # If we have another argument it is the callback function name
+    if args.size > 1
+      callback = args[1].to_s
+    else
+      # If not then determine the callback based on the following parameters
+      ['callback','jscallback','jsonp','jsoncallback'].each do |x|
+        callback = params.delete(x) unless callback
       end
     end
+    # If we have a callback perform some basic sanitization and set the
+    # response content type and the eventual response body
+    if callback
+      callback.tr!('^a-zA-Z0-9_$\.', '')
+      content_type :js
+      response = "#{callback}(#{data})"
+    else
+      # If no callback then set the response content type to json and return
+      # the serialized data
+      content_type :json
+      response = data
+    end
+    response
+  end
+end
+```
 
 With this view I am going to work top-down and so first is to implement a guard
 condition by returning early if we have in-sufficient arguments. I then decide
 that I can make the `pretty` flag into a different method.
 
-    # requires 1 or more arguments
-    return if args.size < 1
+```ruby
+# requires 1 or more arguments
+return if args.size < 1
 
-    # The first argument is the object to serialize
-    data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
+# The first argument is the object to serialize
+data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
 
-    # ...
+# ...
 
-    private
+private
 
-    def display_pretty_json?
-      !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
-    end
+def display_pretty_json?
+  !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
+end
+```
 
 Now running the tests and rubocop again reveal that everything is still passing
 but I have already corrected the perceived complexity of the method as well as
@@ -150,47 +154,49 @@ I move the logic for determining the callback name into a new method and I also
 move the list of parameter keys to check into a constant. This leaves us with
 the following...
 
-    CALLBACK_PARAMS = %w( callback jscallback jsonp jsoncallback ).freeze
+```ruby
+CALLBACK_PARAMS = %w( callback jscallback jsonp jsoncallback ).freeze
 
-    def jsonp(*args)
-      return if args.size < 1
+def jsonp(*args)
+  return if args.size < 1
 
-      data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
-      callback = extract_callback_name(args[1])
+  data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
+  callback = extract_callback_name(args[1])
 
-      # If we have a callback perform some basic sanitization and set the
-      # response content type and the eventual response body
-      if callback
-        callback.tr!('^a-zA-Z0-9_$\.', '')
-        content_type :js
-        response = "#{callback}(#{data})"
-      else
-        # If no callback then set the response content type to json and return
-        # the serialized data
-        content_type :json
-        response = data
-      end
-      response
+  # If we have a callback perform some basic sanitization and set the
+  # response content type and the eventual response body
+  if callback
+    callback.tr!('^a-zA-Z0-9_$\.', '')
+    content_type :js
+    response = "#{callback}(#{data})"
+  else
+    # If no callback then set the response content type to json and return
+    # the serialized data
+    content_type :json
+    response = data
+  end
+  response
+end
+alias JSONP jsonp
+
+private
+
+def display_pretty_json?
+  !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
+end
+
+def extract_callback_name(name = nil)
+  if name.nil?
+    callback = nil
+    CALLBACK_PARAMS.each do |key|
+      callback = params.delete(key) unless callback
     end
-    alias JSONP jsonp
-
-    private
-
-    def display_pretty_json?
-      !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
-    end
-
-    def extract_callback_name(name = nil)
-      if name.nil?
-        callback = nil
-        CALLBACK_PARAMS.each do |key|
-          callback = params.delete(key) unless callback
-        end
-        callback ? callback.to_s : nil
-      else
-        name.to_s
-      end
-    end
+    callback ? callback.to_s : nil
+  else
+    name.to_s
+  end
+end
+```
 
 Again running the tests and rubocop tell me that everything is still working
 and I have now also corrected the ABC score to an acceptable level. The only
@@ -207,41 +213,43 @@ can use.
 
 The result of this is shown below
 
-    CALLBACK_PARAMS = %w( callback jscallback jsonp jsoncallback ).freeze
+```ruby
+CALLBACK_PARAMS = %w( callback jscallback jsonp jsoncallback ).freeze
 
-    def jsonp(*args)
-      return if args.size < 1
-      data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
-      callback = extract_callback_name(args[1])
-      type, response = determine_response(data, callback)
-      content_type(type)
-      response
+def jsonp(*args)
+  return if args.size < 1
+  data = MultiJson.dump(args[0], :pretty => display_pretty_json?)
+  callback = extract_callback_name(args[1])
+  type, response = determine_response(data, callback)
+  content_type(type)
+  response
+end
+alias JSONP jsonp
+
+private
+
+def determine_response(data, callback = nil)
+  return [:json, data] if callback.nil?
+  callback.tr!('^a-zA-Z0-9_$\.', '')
+  [:js, format("%s(%s)", callback, data)]
+end
+
+def display_pretty_json?
+  !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
+end
+
+def extract_callback_name(name = nil)
+  if name.nil?
+    callback = nil
+    CALLBACK_PARAMS.each do |key|
+      callback = params.delete(key) unless callback
     end
-    alias JSONP jsonp
-
-    private
-
-    def determine_response(data, callback = nil)
-      return [:json, data] if callback.nil?
-      callback.tr!('^a-zA-Z0-9_$\.', '')
-      [:js, format("%s(%s)", callback, data)]
-    end
-
-    def display_pretty_json?
-      !!(settings.respond_to?(:json_pretty) && settings.json_pretty)
-    end
-
-    def extract_callback_name(name = nil)
-      if name.nil?
-        callback = nil
-        CALLBACK_PARAMS.each do |key|
-          callback = params.delete(key) unless callback
-        end
-        callback ? callback.to_s : nil
-      else
-        name.to_s
-      end
-    end
+    callback ? callback.to_s : nil
+  else
+    name.to_s
+  end
+end
+```
 
 Running the tests and rubocop now reveal all tests continue to pass and rubocop
 has nothing to complain about! I can commit this and create a pull request.
