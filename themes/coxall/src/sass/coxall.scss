@@ -213,6 +213,10 @@ article {
           @include padding(null null null 0);
         }
       }
+
+      @include medium-screen {
+        font-size: 1.2rem;
+      }
     }
   }
 
@@ -222,7 +226,7 @@ article {
   }
 }
 
-.archive h3 {
+li article h3 {
   @include margin(null null 0 null);
 
   @include small-screen {
@@ -230,7 +234,7 @@ article {
   }
 
   @include medium-screen {
-    @include margin(null null 0 null);
+    @include margin(null null #{modular-scale(1) / 4} null);
   }
 }
 
