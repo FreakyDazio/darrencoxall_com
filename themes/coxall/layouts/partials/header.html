@@ -4,8 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
     <base href="{{ .Site.BaseURL }}">
-    <link href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}." rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">
-    <link href="/css/coxall.css" rel="stylesheet" type="text/css">
+    <link href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">
+
+    {{ $options := (dict "targetPath" "coxall.css" "outputStyle" "compressed" "enableSourceMap" true "includePaths" (slice "node_modules")) }}
+    {{ $style := resources.Get "sass/coxall.scss" | toCSS $options | fingerprint }}
+    <link rel="stylesheet" type="text/css" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
   </head>
   <body lang="en">
 

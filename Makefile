@@ -4,7 +4,7 @@ clean:
 	rm -rf public/*
 
 build: clean
-	npm run build
+	npm install
 	hugo
 
 .PHONY: clean build
